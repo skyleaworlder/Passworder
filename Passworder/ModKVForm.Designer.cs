@@ -1,6 +1,6 @@
 ﻿namespace Passworder
 {
-    partial class NewKVForm
+    partial class ModKVForm
     {
         /// <summary>
         /// Required designer variable.
@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        private void InitializeComponent(string title, string passwordHint)
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,7 +44,6 @@
             this.label1.Size = new System.Drawing.Size(41, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Title";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -54,7 +53,6 @@
             this.label2.Size = new System.Drawing.Size(113, 20);
             this.label2.TabIndex = 1;
             this.label2.Text = "Password Hint";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // titleTextBox
             // 
@@ -62,6 +60,7 @@
             this.titleTextBox.Name = "titleTextBox";
             this.titleTextBox.Size = new System.Drawing.Size(603, 27);
             this.titleTextBox.TabIndex = 2;
+            this.titleTextBox.Text = title;
             // 
             // passwordHintTextBox
             // 
@@ -69,6 +68,7 @@
             this.passwordHintTextBox.Name = "passwordHintTextBox";
             this.passwordHintTextBox.Size = new System.Drawing.Size(603, 27);
             this.passwordHintTextBox.TabIndex = 3;
+            this.passwordHintTextBox.Text = passwordHint;
             // 
             // button1
             // 
@@ -90,7 +90,7 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // NewKVForm
+            // ModKVForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -101,8 +101,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.titleTextBox);
             this.Controls.Add(this.label1);
-            this.Name = "NewKVForm";
-            this.Text = "新增 K-V";
+            this.Name = "ModKVForm";
+            this.Text = "修改 K-V";
             this.ResumeLayout(false);
             this.PerformLayout();
 

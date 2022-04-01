@@ -31,5 +31,27 @@ namespace Passworder
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Dispose(true);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (titleTextBox.Text == "" || passwordHintTextBox.Text == "")
+            {
+                MessageBox.Show("Title or PasswordHint cannot be empty.");
+                return;
+            }
+
+            Main main = (Main) this.Owner;
+            if (!main.InsertPasswordData(titleTextBox.Text, passwordHintTextBox.Text))
+            {
+                MessageBox.Show("Title has already existed in Passworder.");
+                return;
+            }
+            this.Dispose(true);
+        }
     }
 }

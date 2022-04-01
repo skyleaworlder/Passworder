@@ -76,6 +76,7 @@ namespace Passworder
             this.modifyPasswordBtn.TabIndex = 2;
             this.modifyPasswordBtn.Text = "修改";
             this.modifyPasswordBtn.UseVisualStyleBackColor = true;
+            this.modifyPasswordBtn.Click += new System.EventHandler(this.modifyPasswordBtn_Click);
             // 
             // deletePasswordBtn
             // 
@@ -85,6 +86,7 @@ namespace Passworder
             this.deletePasswordBtn.TabIndex = 1;
             this.deletePasswordBtn.Text = "删除";
             this.deletePasswordBtn.UseVisualStyleBackColor = true;
+            this.deletePasswordBtn.Click += new System.EventHandler(this.deletePasswordBtn_Click);
             // 
             // panel1
             // 
@@ -154,6 +156,76 @@ namespace Passworder
             string json = File.ReadAllText(filePath);
             this.dataGridViewColumn = JsonSerializer.Deserialize<PasswordData>(json);
             this.passwordDataGridView.DataSource = this.dataGridViewColumn.Columns;
+        }
+
+        public bool InsertPasswordData(string title, string passwordHint)
+        {
+            PasswordColumnData data = this.dataGridViewColumn.Columns.Find(col => { return col.Title == title; });
+            if (data != null)
+            {
+                return false;
+            }
+
+            // memory
+            PasswordColumnData newData = new PasswordColumnData();
+            newData.Title = title;
+            newData.PasswordHint = passwordHint;
+            this.dataGridViewColumn.Columns.Add(newData);
+
+            // disk
+            string filePath = @"D:\tmp\data.json";
+            string content = JsonSerializer.Serialize<PasswordData>(dataGridViewColumn);
+            File.WriteAllText(filePath, content);
+
+            // reload
+            this.InitializeData();
+            return true;
+        }
+
+        public bool UpdatePasswordData(string originTitle, string title, string passwordHint)
+        {
+            PasswordColumnData data = this.dataGridViewColumn.Columns.Find(col => { return col.Title == originTitle; });
+            if (data == null)
+            {
+                return false;
+            }
+
+            // memory
+            foreach (var columnData in this.dataGridViewColumn.Columns)
+            {
+                if (columnData.Title == originTitle)
+                {
+                    columnData.Title = title;
+                    columnData.PasswordHint = passwordHint;
+                }
+            }
+
+            // disk
+            string filePath = @"D:\tmp\data.json";
+            string content = JsonSerializer.Serialize<PasswordData>(dataGridViewColumn);
+            File.WriteAllText(filePath, content);
+
+            // reload
+            this.InitializeData();
+            return true;
+        }
+
+        private bool DeletePasswordData(PasswordColumnData data)
+        {
+            // memory
+            if (!this.dataGridViewColumn.Columns.Remove(data))
+            {
+                return false;
+            }
+
+            // disk
+            string filePath = @"D:\tmp\data.json";
+            string content = JsonSerializer.Serialize<PasswordData>(dataGridViewColumn);
+            File.WriteAllText(filePath, content);
+
+            // reload
+            this.InitializeData();
+            return true;
         }
 
         private GroupBox passwordGroupBox;
