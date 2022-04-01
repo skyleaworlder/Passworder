@@ -4,3 +4,6 @@
 # for output file
 bin/
 obj/
+
+# for *.cs project
+*.csproj.user
