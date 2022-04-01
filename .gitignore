@@ -7,3 +7,5 @@ obj/
 
 # for *.cs project
 *.csproj.user
+*.pubxml.user
+Properties/
