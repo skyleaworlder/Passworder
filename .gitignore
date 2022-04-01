@@ -1,0 +1,6 @@
+# for Visual Studio
+.vs/
+
+# for output file
+bin/
+obj/
